@@ -80,7 +80,7 @@ Role Variables
 <tr class="odd">
 <td>bitbucket_hash_salt</td>
 <td>yes</td>
-<td><a href="https://github.com/pantarei/ansible-role-bitbucket/blob/master/defaults/main.yml">defaults/main.yml</a></td>
+<td></td>
 <td></td>
 <td>Specific password hash salt for sha512.</td>
 </tr>
@@ -115,7 +115,7 @@ Role Variables
 <tr class="even">
 <td>bitbucket_pass</td>
 <td>yes</td>
-<td>ahle4Boo</td>
+<td></td>
 <td></td>
 <td>Password for BitBucket system user.</td>
 </tr>
@@ -161,7 +161,7 @@ Role Variables
 <tr class="even">
 <td>bitbucket_user</td>
 <td>yes</td>
-<td>bitbucket</td>
+<td></td>
 <td></td>
 <td>Username for BitBucket system user.</td>
 </tr>
@@ -176,9 +176,12 @@ No additional role dependencies.
 Example Playbook
 ----------------
 
-    - hosts: servers
+    - hosts: all
       roles:
-        - { role: hswong3i.bitbucket }
+        - role: hswong3i.bitbucket
+          bitbucket_hash_salt: "BeiVawa2ongiegip"
+          bitbucket_pass: "ahle4Boo"
+          bitbucket_user: "bitbucket"
 
 License
 -------
