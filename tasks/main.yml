@@ -5,6 +5,7 @@
   group:
     name: "{{ bitbucket_user }}"
     gid: "{{ bitbucket_gid | default(None) or omit }}"
+  when: bitbucket_pass is string and bitbucket_hash_salt is string
   notify: restart bitbucket
   tags: hswong3i.bitbucket
 
@@ -16,6 +17,7 @@
     group: "{{ bitbucket_user }}"
     uid: "{{ bitbucket_uid | default(None) or omit }}"
     shell: "/bin/bash"
+  when: bitbucket_pass is string and bitbucket_hash_salt is string
   notify: restart bitbucket
   tags: hswong3i.bitbucket
 
