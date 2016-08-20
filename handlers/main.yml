@@ -3,5 +3,7 @@
 
 - name: restart bitbucket
   service:
-    name: "bitbucket"
-    state: "restarted"
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+  with_items:
+    - { name: "bitbucket", state: "restarted" }

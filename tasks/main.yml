@@ -35,9 +35,11 @@
 
 - name: download package
   get_url:
-    url: "{{ bitbucket_url }}"
-    dest: "/tmp/{{ bitbucket_archive }}"
-    checksum: "{{ bitbucket_checksum }}"
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+    checksum: "{{ item.checksum }}"
+  with_items:
+    - { url: "{{ bitbucket_url }}", dest: "/tmp/{{ bitbucket_archive }}", checksum: "{{ bitbucket_checksum }}" }
   tags: hswong3i.bitbucket
 
 - name: unarchive package
@@ -65,7 +67,9 @@
 
 - name: enable service
   service:
-    name: "bitbucket"
-    enabled: "yes"
+    name: "{{ item.name }}"
+    enabled: "{{ item.enabled }}"
+  with_items:
+    - { name: "bitbucket", enabled: "yes" }
   notify: restart bitbucket
   tags: hswong3i.bitbucket
