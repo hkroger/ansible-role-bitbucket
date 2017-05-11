@@ -65,7 +65,18 @@
   notify: restart bitbucket
   tags: hswong3i.bitbucket
 
-- name: configure variables
+- name: create bitbucket.properties
+  copy:
+    content: ""
+    dest: "/var/lib/bitbucket/shared/bitbucket.properties"
+    force: "no"
+    owner: "{{ bitbucket_user }}"
+    group: "{{ bitbucket_user }}"
+    mode: "0644"
+  notify: restart bitbucket
+  tags: hswong3i.bitbucket
+
+- name: configure bitbucket.properties
   lineinfile:
     path: "{{ item.path }}"
     regexp: "{{ item.regexp }}"
@@ -77,7 +88,7 @@
   notify: restart bitbucket
   tags: hswong3i.bitbucket
 
-- name: configure variables (HTTP reverse proxy)
+- name: configure bitbucket.properties (HTTP reverse proxy)
   lineinfile:
     path: "{{ item.path }}"
     regexp: "{{ item.regexp }}"
@@ -93,7 +104,7 @@
   notify: restart bitbucket
   tags: hswong3i.bitbucket
 
-- name: configure variables (HTTPS reverse proxy)
+- name: configure bitbucket.properties (HTTPS reverse proxy)
   lineinfile:
     path: "{{ item.path }}"
     regexp: "{{ item.regexp }}"
