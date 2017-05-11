@@ -60,8 +60,8 @@
     mode: "{{ item.mode }}"
   with_items:
     - { src: "etc/init.d/bitbucket.j2", dest: "/etc/init.d/bitbucket", owner: "root", group: "root", mode: "0755" }
-    - { src: "usr/share/bitbucket/bin/_start-webapp.sh.j2", dest: "{{ bitbucket_catalina }}/bin/_start-webapp.sh", owner: "{{ bitbucket_user }}", group: "{{ bitbucket_user }}", mode: "0644" }
-    - { src: "usr/share/bitbucket/bin/set-bitbucket-home.sh.j2", dest: "{{ bitbucket_catalina }}/bin/set-bitbucket-home.sh", owner: "{{ bitbucket_user }}", group: "{{ bitbucket_user }}", mode: "0644" }
+    - { src: "usr/share/bitbucket/bin/_start-webapp.sh.j2", dest: "{{ bitbucket_catalina }}/bin/_start-webapp.sh", owner: "{{ bitbucket_user }}", group: "{{ bitbucket_user }}", mode: "0755" }
+    - { src: "usr/share/bitbucket/bin/set-bitbucket-home.sh.j2", dest: "{{ bitbucket_catalina }}/bin/set-bitbucket-home.sh", owner: "{{ bitbucket_user }}", group: "{{ bitbucket_user }}", mode: "0755" }
   notify: restart bitbucket
   tags: hswong3i.bitbucket
 
