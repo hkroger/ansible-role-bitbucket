@@ -30,6 +30,7 @@
     state: "{{ item.state }}"
   with_items:
     - { dest: "{{ bitbucket_catalina }}", owner: "{{ bitbucket_user }}", group: "{{ bitbucket_user }}", mode: "0755", state: "directory" }
+    - { dest: "{{ bitbucket_home }}/shared", owner: "{{ bitbucket_user }}", group: "{{ bitbucket_user }}", mode: "0755", state: "directory" }
   notify: restart bitbucket
   tags: hswong3i.bitbucket
 
@@ -68,7 +69,7 @@
 - name: create bitbucket.properties
   copy:
     content: ""
-    dest: "/var/lib/bitbucket/shared/bitbucket.properties"
+    dest: "{{ bitbucket_home }}/shared/bitbucket.properties"
     force: "no"
     owner: "{{ bitbucket_user }}"
     group: "{{ bitbucket_user }}"
@@ -83,8 +84,8 @@
     line: "{{ item.line }}"
     state: "{{ item.state }}"
   with_items:
-    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regexp: "^server.context-path=", line: "server.context-path={{ bitbucket_context_path }}", state: "present" }
-    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regexp: "^server.port=", line: "server.port={{ bitbucket_connector_port }}", state: "present" }
+    - { path: "{{ bitbucket_home }}/shared/bitbucket.properties", regexp: "^server.context-path=", line: "server.context-path={{ bitbucket_context_path }}", state: "present" }
+    - { path: "{{ bitbucket_home }}/shared/bitbucket.properties", regexp: "^server.port=", line: "server.port={{ bitbucket_connector_port }}", state: "present" }
   notify: restart bitbucket
   tags: hswong3i.bitbucket
 
@@ -95,9 +96,9 @@
     line: "{{ item.line }}"
     state: "{{ item.state }}"
   with_items:
-    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regexp: "^server.proxy-name=", line: "server.proxy-name={{ bitbucket_proxy_name }}", state: "present" }
-    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regexp: "^server.proxy-port=", line: "server.proxy-port=80", state: "present" }
-    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regexp: "^server.scheme=", line: "server.scheme={{ bitbucket_scheme }}", state: "present" }
+    - { path: "{{ bitbucket_home }}/shared/bitbucket.properties", regexp: "^server.proxy-name=", line: "server.proxy-name={{ bitbucket_proxy_name }}", state: "present" }
+    - { path: "{{ bitbucket_home }}/shared/bitbucket.properties", regexp: "^server.proxy-port=", line: "server.proxy-port=80", state: "present" }
+    - { path: "{{ bitbucket_home }}/shared/bitbucket.properties", regexp: "^server.scheme=", line: "server.scheme={{ bitbucket_scheme }}", state: "present" }
   when:
     - bitbucket_proxy_name != none
     - bitbucket_scheme == "http"
@@ -111,10 +112,10 @@
     line: "{{ item.line }}"
     state: "{{ item.state }}"
   with_items:
-    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regexp: "^server.proxy-name=", line: "server.proxy-name={{ bitbucket_proxy_name }}", state: "present" }
-    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regexp: "^server.proxy-port=", line: "server.proxy-port=443", state: "present" }
-    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regexp: "^server.scheme=", line: "server.scheme={{ bitbucket_scheme }}", state: "present" }
-    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regexp: "^server.secure=", line: "server.secure=true", state: "present" }
+    - { path: "{{ bitbucket_home }}/shared/bitbucket.properties", regexp: "^server.proxy-name=", line: "server.proxy-name={{ bitbucket_proxy_name }}", state: "present" }
+    - { path: "{{ bitbucket_home }}/shared/bitbucket.properties", regexp: "^server.proxy-port=", line: "server.proxy-port=443", state: "present" }
+    - { path: "{{ bitbucket_home }}/shared/bitbucket.properties", regexp: "^server.scheme=", line: "server.scheme={{ bitbucket_scheme }}", state: "present" }
+    - { path: "{{ bitbucket_home }}/shared/bitbucket.properties", regexp: "^server.secure=", line: "server.secure=true", state: "present" }
   when:
     - bitbucket_proxy_name != none
     - bitbucket_scheme == "https"
