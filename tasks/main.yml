@@ -68,27 +68,27 @@
 - name: configure variables
   lineinfile:
     path: "{{ item.path }}"
-    regex: "{{ item.regex }}"
+    regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
     state: "{{ item.state }}"
   with_items:
-    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regex: "^server\.context-path=", line: "server.context-path={{ bitbucket_context_path }}", state: "present" }
-    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regex: "^server\.port=", line: "server.port={{ bitbucket_server_port }}", state: "present" }
+    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regexp: "^server.context-path=", line: "server.context-path={{ bitbucket_context_path }}", state: "present" }
+    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regexp: "^server.port=", line: "server.port={{ bitbucket_connector_port }}", state: "present" }
   notify: restart bitbucket
   tags: hswong3i.bitbucket
 
 - name: configure variables (HTTP reverse proxy)
   lineinfile:
     path: "{{ item.path }}"
-    regex: "{{ item.regex }}"
+    regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
     state: "{{ item.state }}"
   with_items:
-    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regex: "^server\.proxy-name=", line: "server.proxy-name={{ bitbucket_proxy_name }}", state: "present" }
-    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regex: "^server\.proxy-port=", line: "server.proxy-port=80", state: "present" }
-    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regex: "^server\.scheme=", line: "server.scheme={{ bitbucket_scheme }}", state: "present" }
+    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regexp: "^server.proxy-name=", line: "server.proxy-name={{ bitbucket_proxy_name }}", state: "present" }
+    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regexp: "^server.proxy-port=", line: "server.proxy-port=80", state: "present" }
+    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regexp: "^server.scheme=", line: "server.scheme={{ bitbucket_scheme }}", state: "present" }
   when:
-    - bitbucket_proxy_name
+    - bitbucket_proxy_name != none
     - bitbucket_scheme == "http"
   notify: restart bitbucket
   tags: hswong3i.bitbucket
@@ -96,16 +96,16 @@
 - name: configure variables (HTTPS reverse proxy)
   lineinfile:
     path: "{{ item.path }}"
-    regex: "{{ item.regex }}"
+    regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
     state: "{{ item.state }}"
   with_items:
-    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regex: "^server\.proxy-name=", line: "server.proxy-name={{ bitbucket_proxy_name }}", state: "present" }
-    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regex: "^server\.proxy-port=", line: "server.proxy-port=443", state: "present" }
-    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regex: "^server\.scheme=", line: "server.scheme={{ bitbucket_scheme }}", state: "present" }
-    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regex: "^server\.secure=", line: "server.secure=true", state: "present" }
+    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regexp: "^server.proxy-name=", line: "server.proxy-name={{ bitbucket_proxy_name }}", state: "present" }
+    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regexp: "^server.proxy-port=", line: "server.proxy-port=443", state: "present" }
+    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regexp: "^server.scheme=", line: "server.scheme={{ bitbucket_scheme }}", state: "present" }
+    - { path: "/var/lib/bitbucket/shared/bitbucket.properties", regexp: "^server.secure=", line: "server.secure=true", state: "present" }
   when:
-    - bitbucket_proxy_name
+    - bitbucket_proxy_name != none
     - bitbucket_scheme == "https"
   notify: restart bitbucket
   tags: hswong3i.bitbucket
