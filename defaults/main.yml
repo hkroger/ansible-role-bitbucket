@@ -9,9 +9,9 @@ bitbucket_uid: ~
 bitbucket_user: ~
 
 # optional variables with default
-bitbucket_archive: "atlassian-bitbucket-5.3.0.tar.gz"
+bitbucket_archive: "atlassian-bitbucket-5.3.1.tar.gz"
 bitbucket_catalina: "/usr/share/bitbucket"
-bitbucket_checksum: "sha256:dc029475602dee2902de4fb3ad0a19df1bf9273eb5b387c1c84f54dd774b0f14"
+bitbucket_checksum: "sha256:91e6d11787d59ab5a33e94cdf0437adaeb1de2bdba1890f06483bbe06ea286f2"
 bitbucket_connector_port: "7990"
 bitbucket_context_path: ~
 bitbucket_home: "/var/lib/bitbucket"
