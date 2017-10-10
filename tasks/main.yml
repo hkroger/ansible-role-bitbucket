@@ -21,6 +21,12 @@
   notify: restart bitbucket
   tags: hswong3i.bitbucket
 
+- name: ensure pre-req packages
+  package:
+    name: "{{ item }}"
+    state: installed
+  with_items: "{{ bitbucket_packages }}"
+
 - name: prepare files
   file:
     dest: "{{ item.dest }}"

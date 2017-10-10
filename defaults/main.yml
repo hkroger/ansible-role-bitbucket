@@ -22,3 +22,6 @@ bitbucket_proxy_name: ~
 bitbucket_scheme: ~
 bitbucket_server_port: "8006"
 bitbucket_url: "https://downloads.atlassian.com/software/stash/downloads/{{ bitbucket_archive }}"
+
+bitbucket_packages:
+  - git
